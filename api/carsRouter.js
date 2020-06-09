@@ -24,3 +24,29 @@ router.post("/", (req, res) => {
       res.status(400).json(err);
     });
 });
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  db("cars")
+    .where({ id })
+    .del()
+    .then((count) => {
+      res.status(200).json(count);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  db("cars")
+    .where({ id })
+    .update(req.body)
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
